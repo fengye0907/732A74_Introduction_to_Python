@@ -1,0 +1,1581 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{732a74-la1-2019(1)}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Lab 1: Python basics}\label{lab-1-python-basics}
+
+    \textbf{Student I:} andch552 (Andreas Christopoulos Charitos)
+
+\textbf{Student II:} zijfe244 (Zijie Feng)
+
+    \subsubsection{A word of caution}\label{a-word-of-caution}
+
+There are currently two versions of Python in common use, Python 2 and
+Python 3, which are not 100\% compatible. Python 2 is slowly being
+phased out but has a large enough install base to still be relevant.
+This course uses the more modern Python 3 but while searching for help
+online it is not uncommon to find help for Python 2. Especially older
+posts on sources such as Stack Exchange might refer to Python 2 as
+simply "Python". This should not cause any serious problems but keep it
+in mind whenever googling. With regards to this lab, the largest
+differences are how \texttt{print} works and the best practice
+recommendations for string formatting.
+
+    \subsubsection{References to R}\label{references-to-r}
+
+Most students taking this course who are not already familiar with
+Python will probably have some experience of the R programming language.
+For this reason, there will be intermittent references to R throughout
+this lab. For those of you with a background in R (or MATLAB/Octave, or
+Julia) the most important thing to remember is that indexing starts at
+0, not at 1.
+
+    \subsubsection{Recommended Reading}\label{recommended-reading}
+
+This course is not built on any specific source and no specific
+litterature is required. However, for those who prefer to have a printed
+reference book, we recommended the books by Mark Lutz:
+
+\begin{itemize}
+\item
+  Learning Python by Mark Lutz, 5th edition, O'Reilly. Recommended for
+  those who have no experience of Python. This book is called LP in the
+  text below.
+\item
+  Programming Python by Mark Lutz, 4th edition, O'Reilly. Recommended
+  for those who have some experience with Python, it generally covers
+  more advanced topics than what is included in this course but gives
+  you a chance to dig a bit deeper if you're already comfortable with
+  the basics. This book is called PP in the text.
+\end{itemize}
+
+For the student interested in Python as a language, it is worth
+mentioning * Fluent Python by Luciano Ramalho (also O'Reilly). Note that
+it is - at the time of writing - still in its first edition, from 2015.
+Thus newer features will be missing.
+
+    \subsubsection{A note about notebooks}\label{a-note-about-notebooks}
+
+When using this notebook, you can enter python code in the empty cells,
+then press ctrl-enter. The code in the cell is executed and if any
+output occurs it will be displayed below the square. Code executed in
+this manner will use the same environment regardless of where in the
+notebook document it is placed. This means that variables and functions
+assigned values in one cell will thereafter be accessible from all other
+cells in your notebook session.
+
+Note that the programming environments described in section 1 of LP is
+not applicable when you run python in this notebook.
+
+    \subsubsection{A note about the structure of this
+lab}\label{a-note-about-the-structure-of-this-lab}
+
+This lab will contain tasks of varying difficulty. There might be cases
+when the solution seems too simple to be true (in retrospect), and cases
+where you have seen similar material elsewhere in the course. Don't be
+fooled by this. In many cases, the task might just serve to remind us of
+things that are worthwhile to check out, or to find out how to use a
+specific method.
+
+We will be returning to, and using, several of the concepts in this lab.
+
+    \subsubsection{1. Strings and string
+handling}\label{strings-and-string-handling}
+
+The primary datatype for storing raw text in Python is the string. Note
+that there is no character datatype, only strings of length 1. This can
+be compared to how there are no atomic numbers in R, only vectors of
+length 1. A reference to the string datatype can be found
+\textbf{\href{https://docs.python.org/3/library/stdtypes.html\#text-sequence-type-str}{here}}.
+
+{[}Litterature: LP: Part II, especially Chapter 4, 7.{]}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\tightlist
+\item
+  Define the variable \texttt{parrot} as the string containing the
+  sentence \emph{It is dead, that is what is wrong with it. This is an
+  ex-"Parrot".}.
+\end{enumerate}
+
+{[}Note: If you have been programming in a language such as C or Java,
+you might be a bit confused about the term "define". Different languages
+use different terms when creating variables, such as "define",
+"declare", "initialize", etc. with slightly different meanings. In
+statically typed languages such as C or Java, declaring a variable
+creates a name connected to a container which can contain data of a
+specific type, but does not put a value in that container.
+Initialization is then the act of putting an initial value in such a
+container. Defining a variable is often used as a synonym to declaring a
+variable in statically typed languages but as Python is dynamically
+typed, i.e. variables can contain values of any type, there is no need
+to declare variables before initializing them. Thus, defining a variable
+in python entails simply assigning a value to a new name, at which point
+the variable is both declared and initialized. This works exactly as in
+R.{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{parrot}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{It is dead, that is what is wrong with it. This is an ex\PYZhy{}}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{Parrot}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{parrot}\PY{p}{)}
+        \PY{n+nb}{type}\PY{p}{(}\PY{n}{parrot}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+"It is dead, that is what is wrong with it. This is an ex-"Parrot"
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} str
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  What methods does the string now called \texttt{parrot} (or indeed any
+  string) seem to support? Write Python commands below to find out.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n+nb}{dir}\PY{p}{(}\PY{n}{parrot}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} ['\_\_add\_\_',
+         '\_\_class\_\_',
+         '\_\_contains\_\_',
+         '\_\_delattr\_\_',
+         '\_\_dir\_\_',
+         '\_\_doc\_\_',
+         '\_\_eq\_\_',
+         '\_\_format\_\_',
+         '\_\_ge\_\_',
+         '\_\_getattribute\_\_',
+         '\_\_getitem\_\_',
+         '\_\_getnewargs\_\_',
+         '\_\_gt\_\_',
+         '\_\_hash\_\_',
+         '\_\_init\_\_',
+         '\_\_init\_subclass\_\_',
+         '\_\_iter\_\_',
+         '\_\_le\_\_',
+         '\_\_len\_\_',
+         '\_\_lt\_\_',
+         '\_\_mod\_\_',
+         '\_\_mul\_\_',
+         '\_\_ne\_\_',
+         '\_\_new\_\_',
+         '\_\_reduce\_\_',
+         '\_\_reduce\_ex\_\_',
+         '\_\_repr\_\_',
+         '\_\_rmod\_\_',
+         '\_\_rmul\_\_',
+         '\_\_setattr\_\_',
+         '\_\_sizeof\_\_',
+         '\_\_str\_\_',
+         '\_\_subclasshook\_\_',
+         'capitalize',
+         'casefold',
+         'center',
+         'count',
+         'encode',
+         'endswith',
+         'expandtabs',
+         'find',
+         'format',
+         'format\_map',
+         'index',
+         'isalnum',
+         'isalpha',
+         'isdecimal',
+         'isdigit',
+         'isidentifier',
+         'islower',
+         'isnumeric',
+         'isprintable',
+         'isspace',
+         'istitle',
+         'isupper',
+         'join',
+         'ljust',
+         'lower',
+         'lstrip',
+         'maketrans',
+         'partition',
+         'replace',
+         'rfind',
+         'rindex',
+         'rjust',
+         'rpartition',
+         'rsplit',
+         'rstrip',
+         'split',
+         'splitlines',
+         'startswith',
+         'strip',
+         'swapcase',
+         'title',
+         'translate',
+         'upper',
+         'zfill']
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Count the number of characters (letters, blank space, commas, periods
+  etc) in the sentence.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The number of characters in parrot string are : }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{parrot}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The number of characters in parrot string are : 66
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  If we type \texttt{parrot\ +\ parrot}, should it change the string
+  itself, or merely produce a new string? How would you test your
+  intuition? Write expressions below.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} it produce a new string}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{parrot}\PY{o}{+}\PY{n}{parrot}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{parrot}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'str'>
+"It is dead, that is what is wrong with it. This is an ex-"Parrot"
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Separate the sentence into a list of words (possibly including
+  separators) using a built-in method. Call the list
+  \texttt{parrot\_words}.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{parrot\PYZus{}words}\PY{o}{=}\PY{n}{parrot}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}
+         \PY{n}{parrot\PYZus{}words}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} ['"It',
+          'is',
+          'dead,',
+          'that',
+          'is',
+          'what',
+          'is',
+          'wrong',
+          'with',
+          'it.',
+          'This',
+          'is',
+          'an',
+          'ex-"Parrot"']
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Merge (concatenate) \texttt{parrot\_words} into a string again.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{merged\PYZus{}parrot}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{parrot\PYZus{}words}\PY{p}{)}
+         \PY{n}{merged\PYZus{}parrot}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} '"It is dead, that is what is wrong with it. This is an ex-"Parrot"'
+\end{Verbatim}
+            
+    \subsubsection{2. Iteration, sequences and string
+formatting}\label{iteration-sequences-and-string-formatting}
+
+Loops are not as painfully slow in Python as they are in R and thus, not
+as critical to avoid. However, for many use cases,
+\emph{comprehensions}, like \emph{list comprehensions} or \emph{dict
+comprehensions} are faster. In this assignment we will see both
+traditional loop constructs and comprehensions. For an introduction to
+comprehensions,
+\textbf{\href{https://python-3-patterns-idioms-test.readthedocs.io/en/latest/Comprehensions.html}{this}}
+might be a good place to start.
+
+It should also be noted that what Python calls lists are unnamed
+sequences. As in R, a Python list can contain elements of many types,
+however, these can only be accessed by indexing or sequence, not by name
+as in R.
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\tightlist
+\item
+  Write a \texttt{for}-loop that produces the following output on the
+  screen: \textgreater{}
+  \texttt{The\ next\ number\ in\ the\ loop\ is\ 5} \textgreater{}
+  \texttt{The\ next\ number\ in\ the\ loop\ is\ 6} \textgreater{} ...
+  \textgreater{} \texttt{The\ next\ number\ in\ the\ loop\ is\ 10}
+\end{enumerate}
+
+{[}Hint: the \texttt{range} function has more than one argument.{]}
+{[}Literature: For the range construct see LP part II chapter 4
+(p.112).{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The next number in the loop is }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The next number in the loop is 5
+The next number in the loop is 6
+The next number in the loop is 7
+The next number in the loop is 8
+The next number in the loop is 9
+The next number in the loop is 10
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Write a \texttt{for}-loop that for a given\texttt{n} sets
+  \texttt{first\_n\_squared} to the sum of squares of the first
+  \texttt{n} numbers (0..n-1).
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{100}  \PY{c+c1}{\PYZsh{} If we change this and run the code, the value of first\PYZus{}n\PYZus{}squared should change afterwards!}
+         \PY{c+c1}{\PYZsh{} your code goes here}
+         \PY{n}{first\PYZus{}n\PYZus{}squared}\PY{o}{=}\PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+             \PY{n}{first\PYZus{}n\PYZus{}squared}\PY{o}{+}\PY{o}{=}\PY{n}{i}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+         
+         \PY{n}{first\PYZus{}n\PYZus{}squared}   \PY{c+c1}{\PYZsh{} should return 0\PYZca{}2 + 1\PYZca{}2 + ... + 99\PYZca{}2 = 328350 if n = 100}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} 328350
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Write a code snippet that counts the number of \textbf{letters} in
+  \texttt{parrot} (as defined above). Use a \texttt{for} loop.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{letters}\PY{o}{=}\PY{l+m+mi}{0}
+         \PY{k}{for}  \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{parrot}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{parrot}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{isalpha}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{letters}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{continue}
+                 
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The number of letters in parrot is: }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{letters}\PY{p}{)}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The number of letters in parrot is: 47
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{names} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tesco}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Forex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alonzo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Zeno}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Write a for-loop that iterates over the list \texttt{names} below and
+  presents them on the screen in the following fashion:
+\end{enumerate}
+
+\begin{quote}
+\texttt{The\ name\ Tesco\ is\ nice} ...
+\texttt{The\ name\ Zeno\ is\ nice}
+\end{quote}
+
+Use Python's string formatting capabilities (the \texttt{format}
+function in the string class) to solve the problem.
+
+{[}Warning: The best practices for how to do string formatting differs
+from Python 2 and 3, make sure you use the Python 3 approach.{]}
+{[}Literature: String formatting is covered in LP part II chapter 7.{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k}{for} \PY{n}{name} \PY{o+ow}{in} \PY{n}{names}\PY{p}{:}
+             \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The name }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{ is nice}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{name}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The name Tesco is nice
+The name Forex is nice
+The name Alonzo is nice
+The name Zeno is nice
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Write a for-loop that iterates over the list \texttt{names} and
+  produces the list \texttt{n\_letters} (\texttt{{[}5,5,6,4{]}}) with
+  the length of each name.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{n\PYZus{}letters}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{name} \PY{o+ow}{in} \PY{n}{names}\PY{p}{:}
+             \PY{n}{n\PYZus{}letters}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{name}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{n\PYZus{}letters}    
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} [5, 5, 6, 4]
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  How would you - in a Python interpreter/REPL or in this Notebook -
+  retrieve the help for the built-in function \texttt{max}?
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{help}\PY{p}{(}\PY{n+nb}{max}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Help on built-in function max in module builtins:
+
+max({\ldots})
+    max(iterable, *[, default=obj, key=func]) -> value
+    max(arg1, arg2, *args, *[, key=func]) -> value
+    
+    With a single iterable argument, return its biggest item. The
+    default keyword-only argument specifies an object to return if
+    the provided iterable is empty.
+    With two or more arguments, return the largest argument.
+
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{6}
+\tightlist
+\item
+  Show an example of how \texttt{max} can be used with an iterable of
+  your choice.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{str0}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{My salsa makes all the pretty girls to drink and dance oooo, my salsa, oooooo}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{str1}\PY{o}{=}\PY{n}{str0}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{,}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{l}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{str1}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{l}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{word}\PY{p}{)}\PY{p}{)}
+         \PY{n}{idx}\PY{o}{=}\PY{n}{l}\PY{o}{.}\PY{n}{index}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{l}\PY{p}{)}\PY{p}{)}    
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The first word with most letters is : }\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s2}{ with }\PY{l+s+si}{\PYZob{}1\PYZcb{}}\PY{l+s+s2}{ letters }\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{str1}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{n}{idx}\PY{p}{]}\PY{p}{,} \PY{n+nb}{max}\PY{p}{(}\PY{n}{l}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The first word with most letters is : 'pretty' with 6 letters 
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{7}
+\tightlist
+\item
+  Use a comprehension (or generator) to calculate the sum 0\^{}2 + ... +
+  (n-1)\^{}2 as above.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{100}
+         \PY{n}{first\PYZus{}n\PYZus{}squared} \PY{o}{=}\PY{n+nb}{sum}\PY{p}{(}\PY{p}{[} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} Change None to your solution.}
+         \PY{n}{first\PYZus{}n\PYZus{}squared} \PY{c+c1}{\PYZsh{} Should return the same result as your for\PYZhy{}loop.}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} 328350
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\roman{enumi})}
+\tightlist
+\item
+  Solve assignment e) using a list comprehension.
+\end{enumerate}
+
+{[}Literature: Comprehensions are covered in LP part II chapter 4.{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{n\PYZus{}letters} \PY{o}{=} \PY{p}{[}\PY{n+nb}{len}\PY{p}{(}\PY{n}{name}\PY{p}{)} \PY{k}{for} \PY{n}{name} \PY{o+ow}{in} \PY{n}{names} \PY{k}{if} \PY{n}{name}\PY{p}{]}
+         
+         \PY{n}{n\PYZus{}letters}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} [5, 5, 6, 4]
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{9}
+\tightlist
+\item
+  Use a list comprehension to produce a list \texttt{short\_long} that
+  indicates if the name (in the list \texttt{names}) has more than four
+  letters. The answer should be
+  \texttt{{[}\textquotesingle{}long\textquotesingle{},\ \textquotesingle{}long\textquotesingle{},\ \textquotesingle{}long\textquotesingle{},\ \textquotesingle{}short\textquotesingle{}{]}}.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{short\PYZus{}long}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{long}\PY{l+s+s2}{\PYZdq{}} \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{name}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{l+m+mi}{4} \PY{k}{else} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{short}\PY{l+s+s2}{\PYZdq{}} \PY{k}{for} \PY{n}{name} \PY{o+ow}{in} \PY{n}{names}\PY{p}{]}
+         
+         \PY{n}{short\PYZus{}long}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} ['long', 'long', 'long', 'short']
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{10}
+\tightlist
+\item
+  Use a comprehension to count the number of letters in \texttt{parrot}.
+  You may not use a \texttt{for}-loop. (The comprehension will contain
+  the word \texttt{for}, but it isn't a
+  \texttt{for\ ...\ in\ ...:}-statement.)
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n+nb}{sum}\PY{p}{(}\PY{p}{[}\PY{n}{parrot}\PY{p}{[}\PY{n}{char}\PY{p}{]}\PY{o}{.}\PY{n}{isalpha}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{char} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{parrot}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} 47
+\end{Verbatim}
+            
+    {[}Note: this is fairly similar to the long/short task, but note how we
+access member functions of the values.{]}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{11}
+\tightlist
+\item
+  Below we have the string \texttt{datadump}. Retrieve the substring
+  string starting at character 27 and ending at character 34 by means of
+  slicing.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{datadump} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The name of the game is \PYZlt{}b\PYZgt{}old html\PYZlt{}/b\PYZgt{}. That is \PYZlt{}b\PYZgt{}so cool\PYZlt{}/b\PYZgt{}.}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{11}
+\tightlist
+\item
+  Write a loop that uses indices to \textbf{simultaneously} loop over
+  the lists \texttt{names} and \texttt{short\_long} to write the
+  following to the screen:
+\end{enumerate}
+
+\begin{quote}
+\texttt{The\ name\ Tesco\ is\ a\ long\ name} ...
+\texttt{The\ name\ Zeno\ is\ a\ short\ name}
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{names}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The name }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{ is a }\PY{l+s+si}{\PYZob{}1\PYZcb{}}\PY{l+s+s2}{ name}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{names}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{short\PYZus{}long}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The name Tesco is a long name
+The name Forex is a long name
+The name Alonzo is a long name
+The name Zeno is a short name
+
+    \end{Verbatim}
+
+    Note: this is a common programming pattern, though not particularly
+Pythonic in this use case. We do however need to know how to use indices
+in lists to work properly with Python.
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{12}
+\tightlist
+\item
+  Do the task above once more, but this time without the use of indices.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{k}{for} \PY{n}{name}\PY{p}{,}\PY{n}{short} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{names}\PY{p}{,}\PY{n}{short\PYZus{}long}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The name }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{ is a }\PY{l+s+si}{\PYZob{}1\PYZcb{}}\PY{l+s+s2}{ name}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{name}\PY{p}{,}\PY{n}{short}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The name Tesco is a long name
+The name Forex is a long name
+The name Alonzo is a long name
+The name Zeno is a short name
+
+    \end{Verbatim}
+
+    {[}Hint: Use the \texttt{zip} function.{]} {[}Literature: zip usage with
+dictionary is found in LP part II chapter 8 and dictionary
+comprehensions in the same place.{]}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{13}
+\tightlist
+\item
+  Among the built-in datatypes, it is also worth mentioning the tuple.
+  Construct two tuples, \texttt{one} containing the number one and
+  \texttt{two} containing the number 1 and the number 2. What happens if
+  you add them? Name some method that a list with similar content (such
+  as \texttt{two\_list} below) would support, that \texttt{two} doesn't
+  and explain why this makes sense.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{one} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{)}    \PY{c+c1}{\PYZsh{} Change this.}
+         \PY{n}{two} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}    \PY{c+c1}{\PYZsh{} Change this}
+         \PY{n}{two\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{one}\PY{o}{+}\PY{n}{two}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{one}\PY{o}{+}\PY{n}{two}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{two}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{Special methods of }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{list}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{:}
+         \PY{l+s+s2}{append()}
+         \PY{l+s+s2}{pop()}
+         \PY{l+s+s2}{remover()}
+         \PY{l+s+s2}{insert()}
+         \PY{l+s+s2}{...}
+         
+         \PY{l+s+s2}{Since }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tuple}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ is a datatype does not have attribute }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}()}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{, it cannot change the elements inside.}
+         \PY{l+s+s2}{But }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{list}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ is a datatype which can change its own elements.}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(1, 1, 2)
+\{1, 2\}
+[1, 2]
+
+Special methods of "list":
+append()
+pop()
+remover()
+insert()
+{\ldots}
+
+Since "tuple" is a datatype does not have attribute "\_\_init\_\_()", it cannot change the elements inside.
+But "list" is a datatype which can change its own elements.
+
+
+    \end{Verbatim}
+
+    \subsubsection{3. Conditionals, logic and while
+loops}\label{conditionals-logic-and-while-loops}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\tightlist
+\item
+  Below we have an integer called \texttt{n}. Write code that prints
+  "It's even!" if it is even, and "It's odd!" if it's not.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{256} \PY{c+c1}{\PYZsh{} Change this to other values and run your code to test.}
+         \PY{c+c1}{\PYZsh{} Your code here.}
+         \PY{k}{def} \PY{n+nf}{eo}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{n}\PY{o}{\PYZpc{}}\PY{k}{2}==0:
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{It}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s even!}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{k}{else} \PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{It}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s odd!}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{eo}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+         \PY{n}{eo}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+It's even!
+It's odd!
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Below we have the list \texttt{options}. Write code (including an
+  \texttt{if} statement) that ensures that the boolean variable
+  \texttt{OPTIMIZE} is True \emph{if and only if} the list contains the
+  string \texttt{-\/-optimize} (exactly like that).
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{OPTIMIZE} \PY{o}{=} \PY{k+kc}{None}       \PY{c+c1}{\PYZsh{} Or some value which we are unsure of.}
+         \PY{n}{options} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}print\PYZhy{}results}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}optimize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}  \PY{c+c1}{\PYZsh{} This might have been generated by a GUI or command line option}
+         
+         \PY{c+c1}{\PYZsh{} Your code goes here.}
+         \PY{k}{if} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}optimize}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{options}\PY{p}{:}
+             \PY{n}{OPTIMIZE}\PY{o}{=}\PY{k+kc}{True}
+         
+         \PY{c+c1}{\PYZsh{} Here OPTIMIZE should be True if and only if we found \PYZsq{}\PYZhy{}\PYZhy{}optimize\PYZsq{} in the list.}
+         \PY{n}{OPTIMIZE}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} True
+\end{Verbatim}
+            
+    Note: It might be tempting to use a \texttt{for} loop. In this case, we
+will not be needing this, and you may \emph{not} use it. Python has some
+useful built-ins to test for membership.
+
+You may use an \texttt{else}-free \texttt{if} statement if you like.
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Redo the task above, but now consider the case where the boolean
+  \texttt{OPTIMIZE} is True \emph{if and only if} the \texttt{options}
+  list contains either \texttt{-\/-optimize} or \texttt{-o} (or both).
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{OPTIMIZE} \PY{o}{=} \PY{k+kc}{None}       \PY{c+c1}{\PYZsh{} Or some value which we are unsure of.}
+         \PY{n}{options} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}print\PYZhy{}results}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}  \PY{c+c1}{\PYZsh{} This might have been generated by a GUI or command line option}
+         
+         \PY{c+c1}{\PYZsh{} Your code goes here.}
+         \PY{k}{def} \PY{n+nf}{opt}\PY{p}{(}\PY{n}{options}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}optimize}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{options}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{options}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{OPTIMIZE}\PY{o}{=}\PY{k+kc}{True}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{OPTIMIZE}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{OPTIMIZE}\PY{o}{=}\PY{k+kc}{None}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{OPTIMIZE}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Here OPTIMIZE should be True if and only if we found \PYZsq{}\PYZhy{}\PYZhy{}optimize\PYZsq{} or \PYZsq{}\PYZhy{}o\PYZsq{} in the list.}
+         \PY{n}{opt}\PY{p}{(}\PY{n}{options}\PY{p}{)}
+         \PY{n}{opt}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}optimize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{opt}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}optimize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+True
+True
+True
+
+    \end{Verbatim}
+
+    {[}Hint: Don't forget to test your code with different versions of the
+options list!
+
+If you find something that seems strange, you might want to check what
+the value of the \emph{condition itself} is.{]}
+
+{[}Note: This extension of the task is included as it includes a common
+source of hard-to-spot bugs.{]}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Write out \emph{a few} good tests that should (in an \emph{extremely}
+  informal sense) illustrate the correctness of your solution. Make sure
+  that you actually try them out with your code.
+\end{enumerate}
+
+Also make sure to write what the cases actually tell you, and why they
+are useful inputs to your set of tests. If you already have the test
+\texttt{options\ =\ {[}"hey"{]}}, adding the test
+\texttt{options\ =\ {[}"hello"{]}} doesn't add any possible ways of
+failing (or any coverage).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{} Test 0: if options is the list below, OPTIMIZE should be True after. }
+         \PY{n}{options} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hello}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{opt}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hello}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}    \PY{c+c1}{\PYZsh{} None}
+         \PY{n}{opt}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}        \PY{c+c1}{\PYZsh{} None}
+         \PY{n}{opt}\PY{p}{(}\PY{n}{options}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} This test demonstrates that ...}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{We try }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{str}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ and }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{integer}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ as input, the solutions should be }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{None}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ and the }
+         \PY{l+s+s2}{results confirm. However, if the list }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{options}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ contains }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}o}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{, the OPTIMIZE }
+         \PY{l+s+s2}{would be }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{True}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+None
+None
+True
+
+We try "str" and "integer" as input, the solutions should be "None" and the 
+results confirm. However, if the list "options" contains "-o", the OPTIMIZE 
+would be "True".
+
+
+    \end{Verbatim}
+
+    {[}Note: This way of testing your code is very primitive, but it's good
+to get used to constructing test cases. We will be discussing procedures
+and functions in the next lab.{]}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Sometimes we can avoid using an \texttt{if} statement altogether. The
+  task above is a prime example of this (and was introduced to get some
+  practice with the \texttt{if} statement). Solve the task above in a
+  one-liner without resorting to an \texttt{if} statement. (You may use
+  an \texttt{if} expression, but you don't have to.)
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{options} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}print\PYZhy{}results}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}  \PY{c+c1}{\PYZsh{} This might have been generated by a GUI or command line option}
+         
+         \PY{n}{OPTIMIZE}\PY{o}{=}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}o}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{options}\PY{p}{)} \PY{o+ow}{or} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}optimize}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{options}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Here OPTIMIZE should be True if and only if we found \PYZsq{}\PYZhy{}\PYZhy{}optimize\PYZsq{} or \PYZsq{}\PYZhy{}o\PYZsq{} in the list.}
+         
+         \PY{n}{OPTIMIZE}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} True
+\end{Verbatim}
+            
+    {[}Hint: What should the value of the condition be when you enter the
+then-branch of the \texttt{if}? When you enter the else-branch?{]}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Write a \texttt{while}-loop that repeatedly generates a random number
+  from a uniform distribution over the interval {[}0,1{]}, and prints
+  the sentence 'The random number is smaller than 0.9' on the screen
+  until the generated random number is greater than 0.9.
+\end{enumerate}
+
+{[}Hint: Python has a \texttt{random} module with basic random number
+generators.{]}
+
+{[}Literature: Introduction to the Random module can be found in LP part
+III chapter 5 (Numeric Types). Importing modules is introduced in part I
+chapter 3 and covered in depth in part IV.{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{k+kn}{import} \PY{n+nn}{random}
+         \PY{n}{number}\PY{o}{=}\PY{l+m+mf}{0.89}
+         \PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{123456}\PY{p}{)}
+         
+         \PY{k}{while} \PY{n}{number}\PY{o}{\PYZlt{}}\PY{l+m+mf}{0.9}\PY{p}{:}
+             \PY{n}{number}\PY{o}{=}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{k}{if} \PY{n}{number}\PY{o}{\PYZlt{}}\PY{l+m+mf}{0.9} \PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The random number }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{ is smaller than 0.9}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{number}\PY{p}{)}\PY{p}{)}
+             \PY{k}{else} \PY{p}{:}
+                 \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The random number }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{ is greater than 0.9 exiting while loop}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{number}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The random number 0.8056271362589 is smaller than 0.9
+The random number 0.7940590105180981 is smaller than 0.9
+The random number 0.029425761106168014 is smaller than 0.9
+The random number 0.17465638335376021 is smaller than 0.9
+The random number 0.0022298761599784944 is smaller than 0.9
+The random number 0.6638830667081945 is smaller than 0.9
+The random number 0.07704930045464609 is smaller than 0.9
+The random number 0.26852339527315083 is smaller than 0.9
+The random number 0.11639518985546105 is smaller than 0.9
+The random number 0.2290251898688216 is smaller than 0.9
+The random number 0.48741758541138713 is smaller than 0.9
+The random number 0.18610490054852236 is smaller than 0.9
+The random number 0.024271797606526646 is smaller than 0.9
+The random number 0.9135736087631979 is greater than 0.9 exiting while loop
+
+    \end{Verbatim}
+
+    \subsubsection{4. Dictionaries}\label{dictionaries}
+
+Dictionaries are association tables, or maps, connecting a key to a
+value. For instance a name represented by a string as key with a number
+representing some attribute as a value. Dictionaries can themselves be
+values in other dictionaries, creating nested or hierarchical data
+structures. This is similar to named lists in R but keys in Python
+dictionaries can be more complex than just strings.
+
+{[}Literature: Dictionaries are found in LP section II chapter 4.{]}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\tightlist
+\item
+  Make a dictionary named \texttt{amadeus} containing the information
+  that the student Amadeus is a male, scored 8 on the Algebra exam and
+  13 on the History exam. The dictionary should NOT include a name
+  entry.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{amadeus}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Amadeus}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Gender}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Male}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Algebra}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{History}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{13}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Make three more dictionaries, one for each of the students: Rosa, Mona
+  and Ludwig, from the information in the following table:
+\end{enumerate}
+
+\begin{longtable}[]{@{}cccc@{}}
+\toprule
+Name & Gender & Algebra & History\tabularnewline
+\midrule
+\endhead
+Rosa & Female & 19 & 22\tabularnewline
+Mona & Female & 6 & 27\tabularnewline
+Ludwig & Other & 12 & 18\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{rosa}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Rosa}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Gender}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Female}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Algebra}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{19}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{History}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{22}\PY{p}{\PYZcb{}}
+         \PY{n}{mona}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mona}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Gender}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Female}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Algebra}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{History}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{27}\PY{p}{\PYZcb{}}
+         \PY{n}{ludwig}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ludwig}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Gender}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Other}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Algebra}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{History}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{18}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Combine the four students in a dictionary named \texttt{students} such
+  that a user of your dictionary can type
+  \texttt{students{[}\textquotesingle{}Amadeus\textquotesingle{}{]}{[}\textquotesingle{}History\textquotesingle{}{]}}
+  to retrive Amadeus score on the history test.
+\end{enumerate}
+
+{[}HINT: The values in a dictionary can be dictionaries.{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{students}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Amadeus}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{amadeus}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Rosa}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{rosa}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mona}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{mona}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ludwig}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{ludwig}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{students}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} \{'Amadeus': \{'Name': 'Amadeus', 'Gender': 'Male', 'Algebra': 8, 'History': 13\},
+          'Rosa': \{'Name': 'Rosa', 'Gender': 'Female', 'Algebra': 19, 'History': 22\},
+          'Mona': \{'Name': 'Mona', 'Gender': 'Female', 'Algebra': 6, 'History': 27\},
+          'Ludwig': \{'Name': 'Ludwig', 'Gender': 'Other', 'Algebra': 12, 'History': 18\}\}
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Add the new male student Karl to the dictionary \texttt{students}.
+  Karl scored 14 on the Algebra exam and 10 on the History exam.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{karl}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Karl}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Gender}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Male}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Algebra}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{History}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{\PYZcb{}}
+         \PY{n}{students}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Karl}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{n}{karl}
+         \PY{n}{students}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} \{'Amadeus': \{'Name': 'Amadeus', 'Gender': 'Male', 'Algebra': 8, 'History': 13\},
+          'Rosa': \{'Name': 'Rosa', 'Gender': 'Female', 'Algebra': 19, 'History': 22\},
+          'Mona': \{'Name': 'Mona', 'Gender': 'Female', 'Algebra': 6, 'History': 27\},
+          'Ludwig': \{'Name': 'Ludwig', 'Gender': 'Other', 'Algebra': 12, 'History': 18\},
+          'Karl': \{'Name': 'Karl', 'Gender': 'Male', 'Algebra': 14, 'History': 10\}\}
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Use a \texttt{for}-loop to print out the names and scores of all
+  students on the screen. The output should look like something this
+  (the order of the students doesn't matter):
+\end{enumerate}
+
+\begin{quote}
+\texttt{Student\ Amadeus\ scored\ 8\ on\ the\ Algebra\ exam\ and\ 13\ on\ the\ History\ exam}
+\texttt{Student\ Rosa\ scored\ 19\ on\ the\ Algebra\ exam\ and\ 22\ on\ the\ History\ exam}
+...
+\end{quote}
+
+{[}Hint: Dictionaries are iterables, also, check out the \texttt{items}
+function for dictionaries.{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{k}{for} \PY{n}{k}\PY{p}{,} \PY{n}{v} \PY{o+ow}{in} \PY{n}{students}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} Your code goes here.}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Student }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{ scored }\PY{l+s+si}{\PYZob{}1\PYZcb{}}\PY{l+s+s2}{ on the Algebra exam and }\PY{l+s+si}{\PYZob{}2\PYZcb{}}\PY{l+s+s2}{ on the History exam}\PY{l+s+s2}{\PYZdq{}}
+                   \PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{students}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{students}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Algebra}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{students}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{History}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Student Amadeus scored 8 on the Algebra exam and 13 on the History exam
+Student Rosa scored 19 on the Algebra exam and 22 on the History exam
+Student Mona scored 6 on the Algebra exam and 27 on the History exam
+Student Ludwig scored 12 on the Algebra exam and 18 on the History exam
+Student Karl scored 14 on the Algebra exam and 10 on the History exam
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Use a dict comprehension and the lists \texttt{names} and
+  \texttt{short\_long} from assignment 2 to create a dictionary of names
+  and wether they are short or long. The result should be a dictionary
+  equivalent to \{'Forex':'long', 'Tesco':'long', ...\}.
+\end{enumerate}
+
+{[}Note: Remember that dictionaries in Python are unordered and that the
+order of the pairs in the above dictionary is arbitrary, you might not
+get the same order, this is fine.{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{p}{\PYZob{}}\PY{n}{key}\PY{p}{:}\PY{n}{value} \PY{k}{for} \PY{p}{(}\PY{n}{key}\PY{p}{,}\PY{n}{value}\PY{p}{)} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{names}\PY{p}{,}\PY{n}{short\PYZus{}long}\PY{p}{)}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:} \{'Tesco': 'long', 'Forex': 'long', 'Alonzo': 'long', 'Zeno': 'short'\}
+\end{Verbatim}
+            
+    \subsubsection{5. Introductory file I/O}\label{introductory-file-io}
+
+File I/O in Python is a bit more general than what most R programmers
+are used to. In R, reading and writing files are usually performed using
+file type specific functions such as \texttt{read.csv} while in Python
+we usually start with reading standard text files. However, there are
+lots of specialized functions for different file types in Python as
+well, especially when using the
+\textbf{\href{http://pandas.pydata.org/}{pandas}} library which is built
+around a datatype similar to R DataFrames. Pandas will not be covered in
+this course though.
+
+{[}Literature: Files are introduced in LP part II chapter 4 and chapter
+9.{]}
+
+    The file \texttt{students.tsv} contains tab separated values
+corresponding to the students in previous assigments.
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\tightlist
+\item
+  Iterate over the file, line by line, and print each line. The result
+  should be something like this:
+\end{enumerate}
+
+\begin{quote}
+\texttt{Amadeus\ \ Male\ \ \ \ 8\ \ \ 13}
+\texttt{Rosa\ Female\ \ 19\ \ 22} ...
+\end{quote}
+
+The file should be closed when reading is complete.
+
+{[}Hint: Files are iterable in Python.{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{f}\PY{o}{=}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{students.tsv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{read\PYZus{}data}\PY{o}{=}\PY{n}{f}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{read\PYZus{}data}\PY{p}{)}
+         \PY{n}{f}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+         \PY{n}{f}\PY{o}{.}\PY{n}{closed}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Amadeus	Male	8	13
+Rosa	Female	19	22
+Mona	Female	6	27
+Ludwig	Other	12	18
+Karl	Male	14	10
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:} True
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Working with many files can be problematic, especially when you forget
+  to close files or errors interrupt programs before files are closed.
+  Python thus has a special \texttt{with} statement which automatically
+  closes files for you, even if an error occurs. Redo the assignment
+  above using the \texttt{with} statement.
+\end{enumerate}
+
+{[}Literature: With is introduced in LP part II chapter 9 page 294.{]}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{students.tsv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+             \PY{n}{read\PYZus{}data}\PY{o}{=}\PY{n}{f}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+         \PY{n}{f}\PY{o}{.}\PY{n}{closed}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{read\PYZus{}data}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Amadeus	Male	8	13
+Rosa	Female	19	22
+Mona	Female	6	27
+Ludwig	Other	12	18
+Karl	Male	14	10
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Recreate the dictionary from assignment the previous assignment by
+  reading the data from the file. Using a dedicated csv-reader is not
+  permitted.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{s}\PY{o}{=}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{students.tsv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+             \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{f}\PY{p}{:}
+                 \PY{n}{s}\PY{p}{[}\PY{n}{line}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{o}{=}\PY{p}{\PYZob{}}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{line}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Gender}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{line}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Algebra}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{line}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{History}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{line}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{\PYZcb{}}
+                 
+         \PY{k}{for} \PY{n}{k}\PY{p}{,}\PY{n}{v} \PY{o+ow}{in} \PY{n}{s}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{k}\PY{p}{,}\PY{n}{v}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Amadeus \{'Name': 'Amadeus', 'Gender': 'Male', 'Algebra': '8', 'History': '13'\}
+Rosa \{'Name': 'Rosa', 'Gender': 'Female', 'Algebra': '19', 'History': '22'\}
+Mona \{'Name': 'Mona', 'Gender': 'Female', 'Algebra': '6', 'History': '27'\}
+Ludwig \{'Name': 'Ludwig', 'Gender': 'Other', 'Algebra': '12', 'History': '18'\}
+Karl \{'Name': 'Karl', 'Gender': 'Male', 'Algebra': '14', 'History': '10'\}
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Using the dictionary above, write sentences from task 4e above to a
+  new file, called \texttt{students.txt}.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{students.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a+}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{the\PYZus{}file}\PY{p}{:}
+             \PY{k}{for} \PY{n}{k}\PY{p}{,}\PY{n}{v} \PY{o+ow}{in} \PY{n}{s}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{the\PYZus{}file}\PY{o}{.}\PY{n}{writelines}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Student }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{ scored }\PY{l+s+si}{\PYZob{}1\PYZcb{}}\PY{l+s+s2}{ on the Algebra exam and }\PY{l+s+si}{\PYZob{}2\PYZcb{}}\PY{l+s+s2}{ on the History exam}\PY{l+s+s2}{\PYZdq{}}
+                   \PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{s}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{s}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Algebra}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{s}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{History}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                     
+                 \PY{n}{the\PYZus{}file}\PY{o}{.}\PY{n}{writelines}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
